@@ -65,12 +65,37 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform: rotate(90deg);
+      transform-origin: 100%;
+      transition: all 0.05s;
+      transition-timing-function: cubic-bezier(0.1, 0.92, 1, 1);
     }
   </style>
 
   <script>
+    const setClock = () => {
+      let now = new Date();
+      const hour = document.querySelector('.hour-hand');
+      const min = document.querySelector('.min-hand');
+      const second = document.querySelector('.second-hand');
 
+      let hourNumber = parseInt(now.getHours())
+      if (parseInt(now.getHours()) >= 12) {
+        hourNumber = parseInt(now.getHours()) - 12
+      }
+      let hourRotation = 90 + hourNumber * 360 / 12
+      hour.style.transform = `rotate(${hourRotation}deg)`
 
+      let minNumber = parseInt(now.getMinutes())
+      let minRotation = 90 + minNumber * 360 / 60
+      min.style.transform = `rotate(${minRotation}deg)`
+
+      let secondNumber = parseInt(now.getSeconds())
+      let secondRotation = 90 + secondNumber * 360 / 60
+      second.style.transform = `rotate(${secondRotation}deg)`
+    }
+
+    setInterval(setClock, 1000);
   </script>
 </body>
 
